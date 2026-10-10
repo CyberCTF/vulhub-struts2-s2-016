@@ -1,0 +1,72 @@
+{
+  "objectives": [
+    {
+      "key": "main",
+      "title": "Read the flag",
+      "prompt": "Make the action mapper evaluate an OGNL expression, run a command and read /ctf/flag.",
+      "check": {
+        "evidence": "SECRET",
+        "format": "FLAG{%s}"
+      },
+      "dev": "FLAG{dev-vulhub-struts2-s2-016}",
+      "hints": [
+        "Struts2 knows special parameter prefixes for navigation. Read the S2-016 advisory on how their values are handled.",
+        "The flag is at /ctf/flag."
+      ],
+      "steps": [
+        {
+          "key": "framework",
+          "title": "Identify the framework",
+          "prompt": "Which Java web framework serves index.action? (name only)",
+          "check": {
+            "answer": [
+              "struts",
+              "struts2",
+              "struts 2",
+              "apache struts",
+              "apache struts 2",
+              "apache struts2"
+            ]
+          }
+        },
+        {
+          "key": "advisory",
+          "title": "Name the advisory",
+          "prompt": "Which Struts security bulletin covers this bug?",
+          "check": {
+            "answer": [
+              "s2-016",
+              "s2016"
+            ]
+          }
+        },
+        {
+          "key": "prefix",
+          "title": "Find the prefix",
+          "prompt": "Name one parameter prefix the mapper treats specially. (prefix with its colon)",
+          "check": {
+            "answer": [
+              "redirect:",
+              "redirectaction:",
+              "action:",
+              "redirect",
+              "redirectaction"
+            ]
+          }
+        },
+        {
+          "key": "language",
+          "title": "Name the language",
+          "prompt": "Which expression language evaluates the prefixed value? (acronym)",
+          "check": {
+            "answer": [
+              "ognl",
+              "object-graph navigation language",
+              "object graph navigation language"
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
